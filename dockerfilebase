@@ -1,0 +1,26 @@
+# An official Conda runtime as a parent image
+FROM continuumio/miniconda3
+
+# Set environment name
+ENV ENV_NAME geospatial_env
+
+# Initialize Conda
+RUN conda init bash
+
+# Create the environment
+RUN conda create -y -n $ENV_NAME python=3.12
+
+# Activate the environment and install packages
+RUN echo "conda activate $ENV_NAME" >> ~/.bashrc
+
+# Set the working directory
+WORKDIR /app
+
+# Copy requirements and install them
+COPY requirements.txt .
+
+# Install unzip using apt-get
+RUN apt-get update && apt-get install -y unzip
+
+# Install packages from requirements.txt
+RUN conda install -y -n $ENV_NAME -c conda-forge --file requirements.txt

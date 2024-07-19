@@ -1,0 +1,4 @@
+geopandas=1.0.1
+h3-py=3.7.7
+openpyxl=3.1.4
+ipython=8.26.0
